@@ -15,7 +15,7 @@
              confirm-inviteds (reduce + (doall (map #(if (zero? (count (graph %))) 0 1) inviteds)))
              level (get levels vertice)
              points (if (zero? level) (count inviteds) (* (pow 0.5 level) confirm-inviteds))]
-         (cons points (aux-bfs
+          (cons points (aux-bfs
                          graph
                          (treat-levels levels vertice inviteds)
                          (into visited inviteds)

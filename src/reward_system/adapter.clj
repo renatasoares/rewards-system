@@ -3,10 +3,8 @@
 						[clojure.string :as str]
             [reward-system.logic :as logic]))
 
-(defn format-response  [function string-seq]
-	(let [numbers (-> string-seq
-										(str)
-										(str/split #" "))]
+(defn format-response [function string-seq]
+	(let [numbers (str/split string-seq #" ")]
 		(function (first numbers) (second numbers))))
 
 (defn read-file [file-path function]

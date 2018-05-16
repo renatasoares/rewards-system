@@ -4,6 +4,5 @@
 			  		[reward-system.logic :as logic]))
 
 (defn -main []
-	(adapter/read-file "resources/in" data/insert!)
-  (println
-	(adapter/bfs @data/graph :1)))
+	(adapter/read-file "resources/sample-in" data/insert!)
+	(adapter/bfs @data/graph :1))
