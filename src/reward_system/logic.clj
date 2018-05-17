@@ -11,10 +11,10 @@
       (if (empty? adjacent)
         nil
         (let [vertice (peek adjacent)
-             inviteds (graph vertice)
-             confirm-inviteds (reduce + (doall (map #(if (zero? (count (graph %))) 0 1) inviteds)))
-             level (get levels vertice)
-             points (if (zero? level) (count inviteds) (* (pow 0.5 level) confirm-inviteds))]
+              inviteds (graph vertice)
+              confirm-inviteds (reduce + (doall (map #(if (zero? (count (graph %))) 0 1) inviteds)))
+              level (get levels vertice)
+              points (* (pow 0.5 level) confirm-inviteds)]
           (cons points (aux-bfs
                          graph
                          (treat-levels levels vertice inviteds)

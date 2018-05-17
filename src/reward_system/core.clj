@@ -5,9 +5,7 @@
 
 (defn -main []
 	(adapter/read-file "resources/sample-in" data/insert!)
-	(adapter/bfs @data/graph :1)
-	(adapter/bfs @data/graph :2)
-	(adapter/bfs @data/graph :3)
-	(adapter/bfs @data/graph :4)
-	(adapter/bfs @data/graph :5)
-	(println @data/ranking))
+	(let [max-size (read-string (last @data/inviteds))]
+		(doall (map #(adapter/bfs @data/graph (-> % (str) (keyword))) (range 1 max-size))))
+	(adapter/show-ranking @data/ranking))
+
