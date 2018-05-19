@@ -1,14 +1,27 @@
-(ns reward-system.data)
+(ns reward-system.data
+	(:require [clojure.set :only union :as set]
+						[reward-system.utility :as utility]))
 
 (def graph (atom {}))
-(def inviteds (atom (set [])))
-(def ranking (atom (sorted-map-by >)))
+(def inviteds (atom (sorted-set)))
+(def confirmed-inviteds (atom (set [])))
+(def ranking (atom {}))
 
-(defn insert! [x y]
-	(when-not (some #{y} @inviteds)
-		(let [conected-points (get @graph (keyword x))]
-	  	(swap! graph conj (hash-map (keyword x) (conj conected-points (keyword y))))))
-	(swap! inviteds conj x y))
+(defn insert-graph! [x y]
+	(let [conected-points (get @graph (keyword x))]
+	  (swap! graph conj (hash-map (keyword x) (conj conected-points (keyword y))))))
+
+(defn insert-confirmed-inviteds! [point] 
+	(swap! confirmed-inviteds conj point))
+
+(defn insert-inviteds! [point]
+	(swap! inviteds conj point))
 
 (defn insert-ranking! [start-point reward-points]
-	(swap! ranking into (hash-map reward-points start-point)))
+	(swap! ranking into (hash-map start-point reward-points)))
+
+(defn insert! [x y]
+	(when-not (utility/contains-set y (set/union @inviteds @confirmed-inviteds))
+		(insert-graph! x y))
+	(insert-confirmed-inviteds! x)
+	(insert-inviteds! y))

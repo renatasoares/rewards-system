@@ -1,13 +1,16 @@
 (ns reward-system.core
   (:require [reward-system.adapter :as adapter]
 			  		[reward-system.data :as data]
-			  		[reward-system.logic :as logic]))
+			  		[reward-system.logic :as logic]
+			  		[clojure.set :as set :only union]))
 
 (defn -main []
 	(adapter/read-file "resources/sample-in" data/insert!)
-	(adapter/bfs @data/graph :1)
-	(adapter/bfs @data/graph :2)
-	(adapter/bfs @data/graph :3)
-	(adapter/bfs @data/graph :4)
-	(adapter/bfs @data/graph :5)
-	(println @data/ranking))
+	(let [union-sets (set/union @data/confirmed-inviteds @data/inviteds)
+				max-size (-> union-sets 
+										 (last) 
+										 (read-string))]
+		(doall (map #(adapter/bfs @data/graph (-> % (str) (keyword))) (range 1 max-size))))
+	(println @data/graph)
+	(println (adapter/show-ranking @data/ranking)))
+
