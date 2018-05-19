@@ -24,7 +24,7 @@
 
 (defn show-ranking [ranking]
   (json/write-str 
-  	(into (sorted-map-by (fn [key1 key2]
-                       	(compare [(get ranking key2) key2]
-                                 [(get ranking key1) key1]))) 
+  	(into (sorted-map-by (fn [point reward-points]
+		                       	(compare [(get ranking reward-points) reward-points]
+		                                 [(get ranking point) point]))) 
   				ranking)))
