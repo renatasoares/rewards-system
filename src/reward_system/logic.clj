@@ -6,9 +6,10 @@
  (apply merge levels (doall (map #(hash-map % (inc (get levels vertice))) inviteds))))
 
 (defn confirmed-inviteds-quantity [inviteds]
-  (reduce + (doall (map #(if (utility/contains-set (name %) @data/confirmed-inviteds) 1 0) inviteds))))
+  (reduce + (doall (map #(if (utility/contains-set (read-string (name %)) @data/confirmed-inviteds) 1 0) inviteds))))
 
 (defn aux-bfs [graph levels visited adjacent]
+
   (lazy-seq
     (if (empty? adjacent)
       nil
