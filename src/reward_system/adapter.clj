@@ -31,11 +31,9 @@
   				ranking)))
 
 (defn run []
-  (let [union-sets (set/union @data/confirmed-inviteds @data/inviteds)
-        max-size (last union-sets)]
+  (let [union-sets (set/union @data/confirmed-inviteds @data/inviteds)]
     (run! deref (doall (map #(future (bfs @data/graph (-> % (str) (keyword))))
-      (range 1 max-size)))))
-  (shutdown-agents))
+      union-sets)))))
 
 (defn old-run []
   (let [union-sets (set/union @data/confirmed-inviteds @data/inviteds)

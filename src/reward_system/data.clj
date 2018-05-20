@@ -3,7 +3,7 @@
 						[reward-system.utility :as utility]))
 
 (def graph (atom {}))
-(def inviteds (atom (sorted-set)))
+(def inviteds (atom (set [])))
 (def confirmed-inviteds (atom (set [])))
 (def ranking (atom {}))
 

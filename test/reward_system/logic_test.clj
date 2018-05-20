@@ -14,7 +14,7 @@
 	(let [graph {:1 '(:3 :2), 
 							 :3 '(:4), 
 							 :4 '(:6 :5)}]
-		(reset! data/confirmed-inviteds (set ["1" "3" "4"]))
+		(reset! data/confirmed-inviteds (set [1 3 4]))
 		(aux-bfs graph
 						(hash-map :1 0)
 						#{:1} 
@@ -24,7 +24,7 @@
 	(let [graph {:1 '(:3 :2), 
 							 :3 '(:4), 
 							 :4 '(:6 :5)}]
-		(reset! data/confirmed-inviteds (set ["1" "2" "3" "4"]))
+		(reset! data/confirmed-inviteds (set [1 2 3 4]))
 		(aux-bfs graph
 						(hash-map :1 0)
 						#{:1} 
@@ -34,7 +34,7 @@
 	(let [graph {:1 '(:2 :5 :6), 
 							 :2 '(:3),
 							 :3 '(:4)}]
-		(reset! data/confirmed-inviteds (set ["1" "2" "3" "4" "5"]))
+		(reset! data/confirmed-inviteds (set [1 2 3 4 5]))
 		(aux-bfs graph
 						(hash-map :1 0)
 						#{:1} 
@@ -44,7 +44,7 @@
 	(let [graph {:1 '(:2 :5 :6), 
 							 :2 '(:3),
 							 :3 '(:4)}]
-		(reset! data/confirmed-inviteds (set ["1" "2" "3" "4" "5"]))
+		(reset! data/confirmed-inviteds (set [1 2 3 4 5]))
 		(aux-bfs graph
 						(hash-map :2 0)
 						#{:2} 
@@ -53,7 +53,7 @@
 (fact "Path to count points of graph starting at 1 with 1 2 and 3 as confirmed inviteds"
 	(let [graph {:1 '(:3 :2), 
 							 :3 '(:4)}]
-		(reset! data/confirmed-inviteds (set ["1" "2" "3"]))
+		(reset! data/confirmed-inviteds (set [1 2 3]))
 		(aux-bfs graph
 						(hash-map :1 0)
 						#{:1} 
@@ -63,7 +63,7 @@
 	(let [graph {:1 '(:3 :2), 
 							 :3 '(:4), 
 							 :4 '(:6 :5)}]
-		(reset! data/confirmed-inviteds (set ["1" "3" "4"]))
+		(reset! data/confirmed-inviteds (set [1 3 4]))
 		(aux-bfs graph
 						(hash-map :3 0)
 						#{:3} 
@@ -79,7 +79,7 @@
 							 :8 '(:9),
 							 :9 '(:10 :11),
 							 :11 '(:13 :12)}]
-		(reset! data/confirmed-inviteds (set ["1" "2" "3" "4" "5" "8" "9" "11"]))
+		(reset! data/confirmed-inviteds (set [1 2 3 4 5 8 9 11]))
 		(aux-bfs graph
 						(hash-map :1 0)
 						#{:1} 
@@ -94,7 +94,7 @@
 							 :8 '(:9),
 							 :9 '(:10 :11),
 							 :11 '(:13 :12)}]
-		(reset! data/confirmed-inviteds (set ["1" "2" "3" "4" "5" "8" "9" "11"]))
+		(reset! data/confirmed-inviteds (set [1 2 3 4 5 8 9 11]))
 		(aux-bfs graph
 						(hash-map :4 0)
 						#{:4} 

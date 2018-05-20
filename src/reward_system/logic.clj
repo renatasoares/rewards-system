@@ -9,7 +9,6 @@
   (reduce + (doall (map #(if (utility/contains-set (read-string (name %)) @data/confirmed-inviteds) 1 0) inviteds))))
 
 (defn aux-bfs [graph levels visited adjacent]
-
   (lazy-seq
     (if (empty? adjacent)
       nil

@@ -37,11 +37,11 @@
 		@graph => expected-graph))
 
 (fact "Insert inviteds"
-	(reset! inviteds (sorted-set))
-	(run! insert-inviteds! (range 1 4))
-	@inviteds => #{1 2 3})
+	(reset! inviteds (set []))
+	(run! insert-inviteds! '("1" "3" "2"))
+	@inviteds => #{1 3 2})
 
 (fact "Insert confirmed inviteds"
 	(reset! confirmed-inviteds (set []))
-	(run! insert-confirmed-inviteds! (range 1 4))
+	(run! insert-confirmed-inviteds! '("1" "2" "3"))
 	@confirmed-inviteds => #{1 2 3})

@@ -20,7 +20,7 @@
 	(let [graph {:1 '(:3 :2), 
 							 :3 '(:4), 
 							 :4 '(:6 :5)}]
-		(reset! data/confirmed-inviteds (set ["1" "3" "4"]))
+		(reset! data/confirmed-inviteds (set [1 3 4]))
 		(reset! data/ranking {})
 		(get (bfs graph :1) :1)
 		(get (bfs graph :2) :2))
