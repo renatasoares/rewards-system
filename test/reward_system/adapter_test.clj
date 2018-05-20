@@ -16,12 +16,12 @@
 	(let [expected-ranking "{\"4\":5,\"2\":2.01,\"3\":2,\"1\":1.5,\"6\":1.2,\"5\":1}"]
 		(show-ranking {:1 1.5 :2 2.01 :3 2 :4 5 :5 1 :6 1.2}) => expected-ranking))
 
-(fact "bfs should insert result to ranking"
+(fact "calculate-point should insert result in ranking"
 	(let [graph {:1 '(:3 :2), 
 							 :3 '(:4), 
 							 :4 '(:6 :5)}]
 		(reset! data/confirmed-inviteds (set [1 3 4]))
 		(reset! data/ranking {})
-		(get (bfs graph :1) :1)
-		(get (bfs graph :2) :2))
+		(get (calculate-point graph :1) :1)
+		(get (calculate-point graph :2) :2))
 	@data/ranking => {:1 1.5 :2 0})

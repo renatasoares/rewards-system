@@ -46,6 +46,7 @@
 		(reset! data/graph {})
 		(reset! data/inviteds (set []))
 		(reset! data/confirmed-inviteds (set []))
+    (reset! data/ranking {})
     (let [insert-response
           (app
             (mock/content-type (mock/body
@@ -58,3 +59,19 @@
       (:body insert-response) => "resources/sample-in inserted!\n"
     	(:body ranking-response) => "{\"1\":2.5,\"3\":1.0,\"6\":0,\"5\":0,\"4\":0.0,\"2\":0}"))
 
+(fact "Insert endpoint and get ranking"
+    (reset! data/graph {})
+    (reset! data/inviteds (set []))
+    (reset! data/confirmed-inviteds (set []))
+    (reset! data/ranking {})
+    (let [insert-response
+          (app
+            (mock/content-type (mock/body
+                                 (mock/request :post "/insert")
+                                 (json/write-str { :inviter "1" :invited "2"}))
+                                 "application/json"))
+          ranking-response (app (mock/request :get "/ranking"))]
+      (:status insert-response) => 200
+      (:status ranking-response) => 200
+      (:body insert-response) => "1 invited 2!\n"
+      (:body ranking-response) => "{\"2\":0,\"1\":0.0}"))

@@ -14,32 +14,31 @@
 	(with-open [reader (io/reader file-path)]
   	(doall (map #(format-response function %) (line-seq reader)))))
 
-(defn bfs [graph start-point]
+(defn calculate-point [graph start-point]
   (data/insert-ranking! 
-  	start-point
-  	(reduce + (logic/aux-bfs 
-  							graph 
-  							(hash-map start-point 0) 
-  							#{start-point} 
-  							(conj (clojure.lang.PersistentQueue/EMPTY) start-point)))))
+   start-point
+   (reduce + (logic/bfs 
+  						 graph 
+  						 (hash-map start-point 0) 
+  						 #{start-point} 
+  						 (conj (clojure.lang.PersistentQueue/EMPTY) start-point)))))
 
 (defn show-ranking [ranking]
   (json/write-str 
-  	(into (sorted-map-by (fn [point reward-points]
-		                       	(compare [(get ranking reward-points) reward-points]
-		                                 [(get ranking point) point]))) 
-  				ranking)))
+  	(into 
+     (sorted-map-by (fn [point reward-points]
+	                   (compare [(get ranking reward-points) reward-points]
+	                            [(get ranking point) point]))) 
+  	 ranking)))
 
 (defn run []
   (let [union-sets (set/union @data/confirmed-inviteds @data/inviteds)]
-    (run! deref (doall (map #(future (bfs @data/graph (-> % (str) (keyword))))
-      union-sets)))))
+    (run! deref 
+     (doall (map #(future (calculate-point @data/graph (-> % (str) (keyword)))) union-sets)))))
 
 (defn old-run []
-  (let [union-sets (set/union @data/confirmed-inviteds @data/inviteds)
-        max-size (last union-sets)]
-    (doall (map #(bfs @data/graph (-> % (str) (keyword)))
-      (range 1 max-size)))))
+  (let [union-sets (set/union @data/confirmed-inviteds @data/inviteds)]
+    (doall (map #(calculate-point @data/graph (-> % (str) (keyword))) union-sets))))
 
 
 

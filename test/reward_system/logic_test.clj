@@ -15,7 +15,7 @@
 							 :3 '(:4), 
 							 :4 '(:6 :5)}]
 		(reset! data/confirmed-inviteds (set [1 3 4]))
-		(aux-bfs graph
+		(bfs graph
 						(hash-map :1 0)
 						#{:1} 
 						(conj (clojure.lang.PersistentQueue/EMPTY) :1))) => '(1 0.5 0.0 0.0 0.0 0.0))
@@ -25,7 +25,7 @@
 							 :3 '(:4), 
 							 :4 '(:6 :5)}]
 		(reset! data/confirmed-inviteds (set [1 2 3 4]))
-		(aux-bfs graph
+		(bfs graph
 						(hash-map :1 0)
 						#{:1} 
 						(conj (clojure.lang.PersistentQueue/EMPTY) :1))) => '(2 0.5 0.0 0.0 0.0 0.0))
@@ -35,7 +35,7 @@
 							 :2 '(:3),
 							 :3 '(:4)}]
 		(reset! data/confirmed-inviteds (set [1 2 3 4 5]))
-		(aux-bfs graph
+		(bfs graph
 						(hash-map :1 0)
 						#{:1} 
 						(conj (clojure.lang.PersistentQueue/EMPTY) :1))) => '(2 0.5 0.0 0.0 0.25 0.0))
@@ -45,7 +45,7 @@
 							 :2 '(:3),
 							 :3 '(:4)}]
 		(reset! data/confirmed-inviteds (set [1 2 3 4 5]))
-		(aux-bfs graph
+		(bfs graph
 						(hash-map :2 0)
 						#{:2} 
 						(conj (clojure.lang.PersistentQueue/EMPTY) :2))) => '(1 0.5 0.0))
@@ -54,7 +54,7 @@
 	(let [graph {:1 '(:3 :2), 
 							 :3 '(:4)}]
 		(reset! data/confirmed-inviteds (set [1 2 3]))
-		(aux-bfs graph
+		(bfs graph
 						(hash-map :1 0)
 						#{:1} 
 						(conj (clojure.lang.PersistentQueue/EMPTY) :1))) => '(2 0.0 0.0 0.0))
@@ -64,7 +64,7 @@
 							 :3 '(:4), 
 							 :4 '(:6 :5)}]
 		(reset! data/confirmed-inviteds (set [1 3 4]))
-		(aux-bfs graph
+		(bfs graph
 						(hash-map :3 0)
 						#{:3} 
 						(conj (clojure.lang.PersistentQueue/EMPTY) :3))) => '(1 0.0 0.0 0.0))
@@ -80,7 +80,7 @@
 							 :9 '(:10 :11),
 							 :11 '(:13 :12)}]
 		(reset! data/confirmed-inviteds (set [1 2 3 4 5 8 9 11]))
-		(aux-bfs graph
+		(bfs graph
 						(hash-map :1 0)
 						#{:1} 
 						(conj (clojure.lang.PersistentQueue/EMPTY) :1))) => '(2 0.5 0.5 0.25 0.25 0.125 0.0 0.0 0.0 0.0 0.0 0.0 0.0))
@@ -95,7 +95,7 @@
 							 :9 '(:10 :11),
 							 :11 '(:13 :12)}]
 		(reset! data/confirmed-inviteds (set [1 2 3 4 5 8 9 11]))
-		(aux-bfs graph
+		(bfs graph
 						(hash-map :4 0)
 						#{:4} 
 						(conj (clojure.lang.PersistentQueue/EMPTY) :4))) => '(1 0.0 0.0 0.0))
@@ -103,7 +103,7 @@
 (fact "Path to count points of empty graph with none confirmed invited"
 	(let [graph {}]
 		(reset! data/confirmed-inviteds (set []))
-		(aux-bfs graph
+		(bfs graph
 						(hash-map :1 0)
 						#{:1} 
 						(conj (clojure.lang.PersistentQueue/EMPTY) :1))) => '(0))
@@ -111,7 +111,7 @@
 (fact "Path to count points of only directed invited graph with none confirmed invited"
 	(let [graph {:1 '(:2 :3 :4)}]
 		(reset! data/confirmed-inviteds (set []))
-		(aux-bfs graph
+		(bfs graph
 						(hash-map :1 0)
 						#{:1} 
 						(conj (clojure.lang.PersistentQueue/EMPTY) :1))) => '(0 0.0 0.0 0.0))

@@ -39,7 +39,7 @@ Utility functions that are needed and used in others namespaces.
 
 # Principal Algorithm
 
-The main function is __aux-bfs__ that is a recursive function that explore nodes by theirs levels. Is a implementation of the breadth-first search (BFS) algorithm for traversing the graph.
+The main function is __bfs__ that is a recursive function that explore nodes by theirs levels. Is an implementation of the breadth-first search (BFS) algorithm for traversing the graph. Produces a lazy-seq of points for each node visited, it means that only calculate the necessary like (take 2 (bfs args)) only returns the seq of the first two points of nodes visiteds.
 
 Detailed flow of input: 
 
@@ -55,7 +55,7 @@ Detailed flow of input:
 
 4 6
 
-The graph below represents the data structured used in the solution. Note that inviteds and confirmed-inviteds are defined before by using sets in insertion (people that invited someone).
+The graph below represents the data structured used in the solution. Note that inviteds and confirmed-inviteds are defined before by using sets in insertion (people that invited someone are confirmed-inviteds).
  
 ![Graph](https://gitlab.com/renatasoares/reward-system/wikis/graph.png)
 
@@ -99,17 +99,17 @@ The states used are:
 
 Points of __1__ = 2 + 0.5 + 0.0 + 0.0 + 0.0 + 0.0 = __2.5__
 
-To calcute rewards points of other nodes is necessary to call __aux-bfs__ with the target node being the start-point.
+To calcute rewards points of other nodes is necessary to call __bfs__ with the target node being the start-point.
 
 # Paralellism With Future
 
-The run function in reward-system.adapter use future to to parallelize the count of node reward points. And use deref to wait until all futures are done to show result. Since ranking is an atom (thread safe and retriable), the use of future has no damage to the result consistency.
+The run function in reward-system.adapter use future to parallelize the count of node reward points. And use deref to wait until all futures are done to show result. Since ranking is an atom (thread safe and retriable), the use of future has no damage to the result consistency.
 
 The old-run function in reward-system.adapter count the node reward points sequentially.
 
 ## Times of executation using future and doing sequentially
 
-### Sample-in (Input Located at "resources/sample-in" in the project that have 6 lines)
+### Sample-in (Input located at "resources/sample-in" in the project that have 6 lines)
 
 #### Parallel
 
@@ -119,7 +119,7 @@ The old-run function in reward-system.adapter count the node reward points seque
 
 ![Using Old-run](https://gitlab.com/renatasoares/reward-system/wikis/old-run-2.png)
 
-### In (Input Located at "resources/in" in the project that have 200 lines)
+### In (Input located at "resources/in" in the project that have 200 lines)
 
 #### Parallel
 
@@ -163,7 +163,6 @@ $ curl -H "Content-Type: application/json" -X POST -d '{"inviter": "__inviter__"
 #### Example
 
 $ curl -H "Content-Type: application/json" -X POST -d '{"inviter": "1", "invited": "2"}' http://localhost:3000/insert
-
 
 # Test
 
